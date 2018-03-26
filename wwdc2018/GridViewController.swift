@@ -120,7 +120,7 @@ class GridViewController: UIViewController {
         let squares = self.createSquares()
         var lines = [LineView]()
         for _ in 0..<self.lines {
-            let line = LineView(withSquares: squares)
+            let line = LineView(withSquares: squares.shuffled())
             line.distribution = .fillEqually
             lines.append(line)
         }
