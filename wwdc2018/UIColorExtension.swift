@@ -11,15 +11,15 @@ import UIKit
 
 extension UIColor {
     
-    var red: CGFloat {
+    var redComponent: CGFloat {
         return self.getRGBAComponents()?.red ?? 0
     }
     
-    var green: CGFloat {
+    var greenComponent: CGFloat {
         return self.getRGBAComponents()?.green ?? 0
     }
 
-    var blue: CGFloat {
+    var blueComponent: CGFloat {
         return self.getRGBAComponents()?.blue ?? 0
     }
     
@@ -55,9 +55,9 @@ extension UIColor {
     }
     
     static func color(from startColor: UIColor, to endColor: UIColor, at percentage: CGFloat) -> UIColor {
-        let resultantRed = startColor.red + percentage * (endColor.red - startColor.red)
-        let resultantGreen = startColor.green + percentage * (endColor.green - startColor.green)
-        let resultantBlue = startColor.blue + percentage * (endColor.blue - startColor.blue)
+        let resultantRed = startColor.redComponent + percentage * (endColor.redComponent - startColor.redComponent)
+        let resultantGreen = startColor.greenComponent + percentage * (endColor.greenComponent - startColor.greenComponent)
+        let resultantBlue = startColor.blueComponent + percentage * (endColor.blueComponent - startColor.blueComponent)
         let resultantAlpha = startColor.alpha + percentage * (endColor.alpha - startColor.alpha)
         
         return UIColor(red: resultantRed, green: resultantGreen, blue: resultantBlue, alpha: resultantAlpha)
