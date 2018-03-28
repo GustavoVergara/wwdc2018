@@ -5,6 +5,7 @@
 - [x] Dynamic grid view
 - [x] Color fading!
 - [x] Grid shuffle
+- [ ] Make the grid object all mighty and powerful
 - [ ] Animations
 - [ ] Sort
 - [ ] More colors!
