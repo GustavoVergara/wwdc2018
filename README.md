@@ -2,8 +2,9 @@
 
 ## TODO List
 
-- [ ] Dynamic grid view
-- [ ] Color fading!
-- [ ] Grid shuffle
+- [-] Dynamic grid view
+- [-] Color fading!
+- [-] Grid shuffle
 - [ ] Animations
 - [ ] Sort
+- [ ] More colors!
