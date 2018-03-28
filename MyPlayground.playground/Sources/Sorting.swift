@@ -8,12 +8,13 @@
 
 import Foundation
 
-class BubbleSorter {
-    
-    let squares: [Square] = Square.squares(fromColor: .purple, toColor: .green, quantity: 10)
-    
-    func sorted() -> [Square] {
-        
-    }
-    
-}
+//class BubbleSorter {
+//    
+//    let squares: [Square] = Square.squares(fromColor: .purple, toColor: .green, quantity: 10)
+//    
+//    func sorted() -> [Square] {
+//        
+//    }
+//    
+//}
+

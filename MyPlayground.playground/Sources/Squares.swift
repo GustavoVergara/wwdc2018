@@ -72,23 +72,6 @@ class SquareView: UIView {
     
 }
 
-public struct Line {
-    public var squares: [Square]
-    
-    public init(fromColor startColor: UIColor, toColor endColor: UIColor, quantity: Int) {
-        self.squares = Square.squares(fromColor: startColor, toColor: endColor, quantity: quantity)
-    }
-    
-    public init(squares: [Square]) {
-        self.squares = squares
-    }
-    
-    mutating func shuffle() {
-        self.squares.shuffle()
-    }
-    
-}
-
 class LineView: UIStackView {
     
     var squareViews: [SquareView] {
