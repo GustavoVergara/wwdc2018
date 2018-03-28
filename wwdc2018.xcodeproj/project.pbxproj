@@ -14,6 +14,9 @@
 		9B6120D72069DA23003297AF /* GridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6120D42069DA23003297AF /* GridViewController.swift */; };
 		9B6120D82069DA23003297AF /* Squares.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6120D52069DA23003297AF /* Squares.swift */; };
 		9BBA1861206B26E400F0933A /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBA1860206B26E400F0933A /* Line.swift */; };
+		9BBA1865206B43A600F0933A /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBA1862206B43A600F0933A /* Array+Extensions.swift */; };
+		9BBA1866206B43A600F0933A /* ArrayStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBA1863206B43A600F0933A /* ArrayStackView.swift */; };
+		9BBA1867206B43A600F0933A /* DelayOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBA1864206B43A600F0933A /* DelayOperation.swift */; };
 		9BCF40872069DF37007815D6 /* Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCF40862069DF37007815D6 /* Sorting.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +30,9 @@
 		9B6120D42069DA23003297AF /* GridViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridViewController.swift; sourceTree = "<group>"; };
 		9B6120D52069DA23003297AF /* Squares.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Squares.swift; sourceTree = "<group>"; };
 		9BBA1860206B26E400F0933A /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		9BBA1862206B43A600F0933A /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		9BBA1863206B43A600F0933A /* ArrayStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayStackView.swift; sourceTree = "<group>"; };
+		9BBA1864206B43A600F0933A /* DelayOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayOperation.swift; sourceTree = "<group>"; };
 		9BCF40862069DF37007815D6 /* Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sorting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +86,7 @@
 		9B6120D22069DA23003297AF /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				9BBA1868206B43AD00F0933A /* VerticalLines */,
 				9B6120D32069DA23003297AF /* UIColorExtension.swift */,
 				9B6120D42069DA23003297AF /* GridViewController.swift */,
 				9B6120D52069DA23003297AF /* Squares.swift */,
@@ -88,6 +95,16 @@
 			);
 			name = Sources;
 			path = MyPlayground.playground/Sources;
+			sourceTree = SOURCE_ROOT;
+		};
+		9BBA1868206B43AD00F0933A /* VerticalLines */ = {
+			isa = PBXGroup;
+			children = (
+				9BBA1862206B43A600F0933A /* Array+Extensions.swift */,
+				9BBA1863206B43A600F0933A /* ArrayStackView.swift */,
+				9BBA1864206B43A600F0933A /* DelayOperation.swift */,
+			);
+			path = VerticalLines;
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
@@ -163,10 +180,13 @@
 			files = (
 				9B6120D82069DA23003297AF /* Squares.swift in Sources */,
 				9B4F52B620661E8A00FAAFE8 /* AppDelegate.swift in Sources */,
+				9BBA1867206B43A600F0933A /* DelayOperation.swift in Sources */,
 				9B6120D62069DA23003297AF /* UIColorExtension.swift in Sources */,
+				9BBA1865206B43A600F0933A /* Array+Extensions.swift in Sources */,
 				9BBA1861206B26E400F0933A /* Line.swift in Sources */,
 				9B6120D72069DA23003297AF /* GridViewController.swift in Sources */,
 				9BCF40872069DF37007815D6 /* Sorting.swift in Sources */,
+				9BBA1866206B43A600F0933A /* ArrayStackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
