@@ -1,8 +1,22 @@
 import Foundation
 
 open class DelayOperation: Operation {
-    private var _executing = false
-    private var _finished = false
+    private var _executing = false {
+        willSet {
+            self.willChangeValue(forKey: "isExecuting")
+        }
+        didSet {
+            self.didChangeValue(forKey: "isExecuting")
+        }
+    }
+    private var _finished = false {
+        willSet {
+            self.willChangeValue(forKey: "isFinished")
+        }
+        didSet {
+            self.didChangeValue(forKey: "isFinished")
+        }
+    }
     
     private let delayInSeconds: TimeInterval
     
@@ -22,9 +36,7 @@ open class DelayOperation: Operation {
             return
         }
         
-        willChangeValue(forKey: "isExecuting")
         _executing = true
-        didChangeValue(forKey: "isExecuting")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds, execute: { [weak self] in
             
@@ -36,12 +48,8 @@ open class DelayOperation: Operation {
     }
     
     func finish() {
-        willChangeValue(forKey: "isExecuting")
-        willChangeValue(forKey: "isFinished")
         _executing = false
         _finished = true
-        didChangeValue(forKey: "isExecuting")
-        didChangeValue(forKey: "isFinished")
     }
     
     override open var isExecuting: Bool {

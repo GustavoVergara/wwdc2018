@@ -8,5 +8,3 @@ var grid = Grid()
 grid.startColor = .yellow
 grid.endColor = .green
 
-PlaygroundPage.current.liveView = GridViewController(withGrid: grid)
-

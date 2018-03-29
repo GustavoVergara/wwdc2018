@@ -88,9 +88,9 @@
 			children = (
 				9BBA1868206B43AD00F0933A /* VerticalLines */,
 				9B6120D32069DA23003297AF /* UIColorExtension.swift */,
+				9BCF40862069DF37007815D6 /* Sorting.swift */,
 				9B6120D42069DA23003297AF /* GridViewController.swift */,
 				9B6120D52069DA23003297AF /* Squares.swift */,
-				9BCF40862069DF37007815D6 /* Sorting.swift */,
 				9BBA1860206B26E400F0933A /* Line.swift */,
 			);
 			name = Sources;
