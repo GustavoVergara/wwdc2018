@@ -20,6 +20,10 @@ public struct Row {
         self.blocks = .blocks(fromColor: startColor, toColor: endColor, quantity: quantity)
     }
     
+    init(quantity: Int) {
+        self.blocks = .blocks(quantity: quantity)
+    }
+    
     public init(squares: Blocks) {
         self.blocks = squares
     }

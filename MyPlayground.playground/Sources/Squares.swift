@@ -45,6 +45,10 @@ extension Collection where Element == Block {
     static func blocks(fromColor startColor: UIColor, toColor endColor: UIColor, quantity: Int) -> [Block] {
         return UIColor.colors(from: startColor, to: endColor, quantity: quantity).enumerated().map({ Block(color: $0.element, correctPosition: $0.offset) })
     }
+    
+    static func blocks(quantity: Int) -> [Block] {
+        return UIColor.colors(quantity: quantity).enumerated().map({ Block(color: $0.element, correctPosition: $0.offset) })
+    }
 }
 
 // MARK: -

@@ -74,5 +74,15 @@ extension UIColor {
         
         return returnValue
     }
+    
+    static func colors(quantity: Int) -> [UIColor] {        
+        var returnValue = [UIColor]()
+        let step = (CGFloat(quantity) / (CGFloat(quantity) - 1))
+        for index in 0..<quantity {
+            returnValue.append(UIColor(hue: (CGFloat(index) * step) / CGFloat(quantity), saturation: 0.6, brightness: 1.0, alpha: 1.0))
+        }
+        
+        return returnValue
+    }
 
 }
