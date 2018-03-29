@@ -34,37 +34,76 @@ class BubbleSorter: Sorter {
     
 }
 
-class QuickSort: Sorter { // TODO: Make it work :)
+class QuickSorter: Sorter {
     
-    @discardableResult
-    private func sortedBlocks(_ blocks: [Block], updateRowWith: @escaping ([Block]) -> Void) -> [Block] {
-        guard blocks.count > 1 else {
-            
-            return blocks
-        }
-        let pivot = blocks[blocks.endIndex / 2]
+    /// Quick sort a subarray from index start...end
+    /// Note that you can randomly pick a pivotIndex and avoid worst case O(N^2) complexity when the starting array is reversed.
+    func quickSort(range: CountableClosedRange<Int>, ofLine line: inout [Block], updateRowWith: ([Block]) -> Void) {
+        guard range.lowerBound < range.upperBound else { return }
         
-        var lessThan = [Block]()
-        var greaterThan = [Block]()
-        var equalAs = [pivot]
+        let pivot = line[(range.lowerBound + range.upperBound) / 2]
         
-        for block in blocks {
-            if block < pivot {
-                lessThan.append(block)
-            } else if block > pivot {
-                greaterThan.append(block)
-            } else {
-                equalAs.append(block)
-            }
-        }
-        
-        let returnValue = sortedBlocks(lessThan, updateRowWith: updateRowWith) + equalAs + sortedBlocks(greaterThan, updateRowWith: updateRowWith)
-        updateRowWith(returnValue)
-        return returnValue
+        let newPivotIndex = self.sortPivot(pivot, inLine: &line, range: range, updateRowWith: updateRowWith)
+        self.quickSort(range: range.lowerBound...newPivotIndex, ofLine: &line, updateRowWith: updateRowWith)
+        self.quickSort(range: (newPivotIndex + 1)...range.upperBound, ofLine: &line, updateRowWith: updateRowWith)
     }
     
+    /// The array is partitioned into [start...p] and [p+1...end]
+    /// All elements in the left array <= the pivot.
+    /// All elements in the right array > the pivot.
+    /// Return p, the end index of the left array.
+    /// Note this may not be the pivot's index.
+    func sortPivot(_ pivot: Block, inLine line: inout [Block], range: CountableClosedRange<Int>, updateRowWith: ([Block]) -> Void) -> Int {
+        var i = range.lowerBound - 1
+        var j = range.upperBound + 1
+        
+        while true {
+            repeat { i += 1 } while line[i] < pivot
+            repeat { j -= 1 } while line[j] > pivot
+            
+            if i < j {
+                line.swapAt(i, j)
+                updateRowWith(line)
+            } else {
+                return j
+            }
+        }
+    }
+    
+//    @discardableResult
+//    private func sortedBlocks(_ blocks: [Block], updateRowWith: @escaping ([Block]) -> Void) -> [Block] {
+//        var blocks = blocks
+//        self.quickSort(&blocks, start: blocks.startIndex, end: blocks.endIndex - 1)
+//        guard blocks.count > 1 else {
+//
+//            return blocks
+//        }
+//        let pivot = blocks[blocks.endIndex / 2]
+//
+//        var lessThan = [Block]()
+//        var greaterThan = [Block]()
+//        var equalAs = [pivot]
+//
+//        for block in blocks {
+//            if block < pivot {
+//                lessThan.append(block)
+//            } else if block > pivot {
+//                greaterThan.append(block)
+//            } else {
+//                equalAs.append(block)
+//            }
+//        }
+//
+//        let returnValue = sortedBlocks(lessThan, updateRowWith: updateRowWith) + equalAs + sortedBlocks(greaterThan, updateRowWith: updateRowWith)
+//        updateRowWith(returnValue)
+//        return returnValue
+//    }
+    
     func sortSquares(_ squares: [Block], updateRowWith: @escaping ([Block]) -> Void) {
-        self.sortedBlocks(squares, updateRowWith: updateRowWith)
+        var blocks = squares
+        self.quickSort(range: CountableClosedRange(blocks.startIndex..<blocks.endIndex), ofLine: &blocks, updateRowWith: updateRowWith)
+
+//        self.sortedBlocks(squares, updateRowWith: updateRowWith)
     }
 
 }

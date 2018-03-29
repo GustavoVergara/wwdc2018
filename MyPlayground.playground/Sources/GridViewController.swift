@@ -13,11 +13,11 @@ import UIKit
 public class Grid {
     public var startColor: UIColor = .purple        { didSet { self._rows = nil } }
     public var endColor: UIColor = .green           { didSet { self._rows = nil } }
-    public var amountOfHorizontalLines: Int = 10     { didSet { self._rows = nil } }
-    public var amountOfVerticalSquares: Int = 20    { didSet { self._rows = nil } }
+    public var amountOfHorizontalLines: Int = 2     { didSet { self._rows = nil } }
+    public var amountOfVerticalSquares: Int = 70    { didSet { self._rows = nil } }
     public var delayBetweenUpdates: TimeInterval = 0.005
     
-    public var sorter: Sorter = BubbleSorter()//QuickSort()
+    public var sorter: Sorter = QuickSorter()
     
     let gridView = GridViewController()
     
@@ -62,7 +62,7 @@ public class Grid {
         self.show()
         
         for (index, row) in self.rows.enumerated() {
-            DispatchQueue.global(qos: .userInteractive).asyncAfter(deadline: .now() + 2) {
+            DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 2) {
                 self.sorter.sortSquares(row.blocks, updateRowWith: { (blocks) in
                     let updateOperation = BlockOperation {
                         DispatchQueue.main.async {
