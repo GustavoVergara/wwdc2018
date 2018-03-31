@@ -32,6 +32,10 @@ public struct Row {
         self.blocks.shuffle()
     }
     
+    mutating func replace(_ newValues: [Block], startingIndex: Index) {
+        let newSubrange = startingIndex..<(startingIndex + newValues.count)
+        self.blocks.replaceSubrange(newSubrange, with: newValues)
+    }
 }
 
 extension Row: MutableCollection, RandomAccessCollection {
@@ -47,7 +51,7 @@ extension Row: MutableCollection, RandomAccessCollection {
         return self.blocks.index(after: i)
     }
     
-    /// Required subscript, based on the square array
+    /// Required subscript, based on the block array
     public subscript(position: Index) -> Iterator.Element {
         get {
             return self.blocks[position]
@@ -61,10 +65,10 @@ extension Row: MutableCollection, RandomAccessCollection {
 
 // MARK: -
 
-class LineView: UIView {
+class RowView: UIView {
     
-    var squareViews: [SquareView] {
-        return self.subviews.compactMap({ $0 as? SquareView })
+    var squareViews: [BlockView] {
+        return self.subviews.compactMap({ $0 as? BlockView })
     }
     
     var blocks: [Block] {
@@ -114,7 +118,7 @@ class LineView: UIView {
         self.subviews.forEach({ $0.removeFromSuperview() })
         
         for block in self.row {
-            let squareView = SquareView(square: block)
+            let squareView = BlockView(square: block)
             self.addSubview(squareView)
         }
         

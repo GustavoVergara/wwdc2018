@@ -10,15 +10,9 @@ import Foundation
 
 public protocol Sorter {
     
-    func sortSquares(_ squares: [Block], updateRowWith: @escaping ([Block]) -> Void)
+    func sortRow(_ row: Row, updateRowTo: (Row) -> Void)
     
 }
-
-//extension Sorter {
-//    static var bubbleSorter: Sorter { return BubbleSorter() }
-//    static var quickSorter: Sorter { return QuickSorter() }
-//    static var mergeSorter: Sorter { return MergeSorter() }
-//}
 
 // MARK: -
 
@@ -26,8 +20,8 @@ class BubbleSorter: Sorter {
     
     // MARK: Sorter Conformance
 
-    func sortSquares(_ squares: [Block], updateRowWith: @escaping ([Block]) -> Void) {
-        var squares = squares
+    func sortRow(_ row: Row, updateRowTo: (Row) -> Void) {
+        var squares = row
         var isSorted: Bool
         repeat {
             isSorted = true
@@ -35,7 +29,7 @@ class BubbleSorter: Sorter {
             // Check each value in the array
             for i in 0..<(squares.endIndex - 1) where squares[i] > squares[i + 1] {
                 squares.swapAt(i, i + 1)
-                updateRowWith(squares)
+                updateRowTo(squares)
                 isSorted = false
             }
         } while (isSorted == false)
@@ -50,14 +44,14 @@ class QuickSorter: Sorter {
     
     /// Quick sort a subarray from index start...end
     /// Note that you can randomly pick a pivotIndex and avoid worst case O(N^2) complexity when the starting array is reversed.
-    private func quickSort(range: CountableClosedRange<Int>, ofLine line: inout [Block], updateRowWith: ([Block]) -> Void) {
+    private func quickSort(range: CountableClosedRange<Int>, ofRow row: inout Row, updateRowTo: (Row) -> Void) {
         guard range.lowerBound < range.upperBound else { return }
         
-        let pivot = line[(range.lowerBound + range.upperBound) / 2]
+        let pivot = row[(range.lowerBound + range.upperBound) / 2]
         
-        let newPivotIndex = self.sortPivot(pivot, inLine: &line, range: range, updateRowWith: updateRowWith)
-        self.quickSort(range: range.lowerBound...newPivotIndex, ofLine: &line, updateRowWith: updateRowWith)
-        self.quickSort(range: (newPivotIndex + 1)...range.upperBound, ofLine: &line, updateRowWith: updateRowWith)
+        let newPivotIndex = self.sortPivot(pivot, inRow: &row, range: range, updateRowTo: updateRowTo)
+        self.quickSort(range: range.lowerBound...newPivotIndex, ofRow: &row, updateRowTo: updateRowTo)
+        self.quickSort(range: (newPivotIndex + 1)...range.upperBound, ofRow: &row, updateRowTo: updateRowTo)
     }
     
     /// The array is partitioned into [start...p] and [p+1...end]
@@ -65,17 +59,17 @@ class QuickSorter: Sorter {
     /// All elements in the right array > the pivot.
     /// Return p, the end index of the left array.
     /// Note this may not be the pivot's index.
-    private func sortPivot(_ pivot: Block, inLine line: inout [Block], range: CountableClosedRange<Int>, updateRowWith: ([Block]) -> Void) -> Int {
+    private func sortPivot(_ pivot: Block, inRow row: inout Row, range: CountableClosedRange<Int>, updateRowTo: (Row) -> Void) -> Int {
         var i = range.lowerBound - 1
         var j = range.upperBound + 1
         
         while true {
-            repeat { i += 1 } while line[i] < pivot
-            repeat { j -= 1 } while line[j] > pivot
+            repeat { i += 1 } while row[i] < pivot
+            repeat { j -= 1 } while row[j] > pivot
             
             if i < j {
-                line.swapAt(i, j)
-                updateRowWith(line)
+                row.swapAt(i, j)
+                updateRowTo(row)
             } else {
                 return j
             }
@@ -84,9 +78,9 @@ class QuickSorter: Sorter {
     
     // MARK: Sorter Conformance
     
-    func sortSquares(_ squares: [Block], updateRowWith: @escaping ([Block]) -> Void) {
-        var blocks = squares
-        self.quickSort(range: CountableClosedRange(blocks.startIndex..<blocks.endIndex), ofLine: &blocks, updateRowWith: updateRowWith)
+    func sortRow(_ row: Row, updateRowTo: (Row) -> Void) {
+        var row = row
+        self.quickSort(range: CountableClosedRange(row.startIndex..<row.endIndex), ofRow: &row, updateRowTo: updateRowTo)
     }
 
 }
@@ -95,69 +89,7 @@ class QuickSorter: Sorter {
 
 class MergeSorter: Sorter {
     
-//    private func merge(from start: Int, line: inout [Block], leftRange: Range<Int>, rightRange: Range<Int>, updateRowWith: ([Block]) -> Void) {
-//        var leftIndex = leftRange.lowerBound
-////        let leftLine = Array(line[leftRange])
-//        var rightIndex = rightRange.lowerBound
-////        let rightLine = Array(line[rightRange])
-//
-//        var orderedArray: [Block] = []
-//
-//        while leftIndex <= leftRange.upperBound && rightIndex <= rightRange.upperBound {
-//            let leftElement = line[leftIndex]
-//            let rightElement = line[rightIndex]
-//
-//            if leftElement < rightElement {
-//                orderedArray.append(leftElement)
-//                leftIndex += 1
-//            } else if leftElement > rightElement {
-//                orderedArray.append(rightElement)
-//                rightIndex += 1
-//            } else {
-//                orderedArray.append(leftElement)
-//                leftIndex += 1
-//                orderedArray.append(rightElement)
-//                rightIndex += 1
-//            }
-//
-//            // Update Method A - Update after each element was appended
-//            let remainingLeft = Array(line[leftIndex...leftRange.upperBound])
-//            let remainingRight = Array(line[rightIndex...rightRange.upperBound])
-//            let newValues = orderedArray + remainingLeft + remainingRight
-//
-////            line[start..<(start + newValues.count)] = newValues
-//            line.replace(newValues, startingIndex: start)
-//            updateRowWith(line)
-//        }
-//
-//        while leftIndex < leftLine.count {
-//            orderedArray.append(leftLine[leftIndex])
-//            leftIndex += 1
-//        }
-//
-//        while rightIndex < rightLine.count {
-//            orderedArray.append(rightLine[rightIndex])
-//            rightIndex += 1
-//        }
-//
-////        return orderedArray
-//    }
-//
-//    // Note the 'start' param is used for display, not the algorithm.
-//    private func mergeSort(from start: Int, line: inout [Block], updateRowWith: @escaping ([Block]) -> Void) {
-//        guard line.count > 1 else { return }
-//
-//        let midIndex = line.count / 2
-//        var left = Array(line[0 ..< midIndex])
-//        var right = Array(line[midIndex ..< line.count])
-//
-//        mergeSort(from: start, line: &left, updateRowWith: updateRowWith)
-//        mergeSort(from: start + midIndex, line: &right, updateRowWith: updateRowWith)
-//
-//        self.merge(from: start, line: &line, leftRange: 0..<midIndex, rightRange: midIndex..<line.count, updateRowWith: updateRowWith)
-//    }
-
-    public func merge(from start: Int, _ left: [Block], _ right: [Block], row: inout [Block], updateRowWith: ([Block]) -> Void) -> [Block] {
+    public func merge(from start: Int, _ left: [Block], _ right: [Block], row: inout Row, updateRowTo: (Row) -> Void) -> [Block] {
         var leftIndex = 0
         var rightIndex = 0
         
@@ -185,8 +117,9 @@ class MergeSorter: Sorter {
             let remainingRight = Array(right[rightIndex ..< right.count])
             let newValues = orderedArray + remainingLeft + remainingRight
             
-            row.replace(newValues, startingIndex: start)
-            updateRowWith(row)
+            
+            row.blocks.replace(newValues, startingIndex: start)
+            updateRowTo(row)
         }
         
         while leftIndex < left.count {
@@ -203,17 +136,17 @@ class MergeSorter: Sorter {
     }
     
     // Note the 'start' param is used for display, not the algorithm.
-    func mergeSort(from start: Int, row: inout [Block], updateRowWith: ([Block]) -> Void, fullRow: inout [Block]) {
+    func mergeSort(from start: Int, row: inout [Block], updateRowTo: (Row) -> Void, fullRow: inout Row) {
         guard row.count > 1 else { return }
         
         let midIndex = row.count / 2
         var left = Array(row[0 ..< midIndex])
         var right = Array(row[midIndex ..< row.count])
         
-        mergeSort(from: start, row: &left, updateRowWith: updateRowWith, fullRow: &fullRow)
-        mergeSort(from: start + midIndex, row: &right, updateRowWith: updateRowWith, fullRow: &fullRow)
+        mergeSort(from: start, row: &left, updateRowTo: updateRowTo, fullRow: &fullRow)
+        mergeSort(from: start + midIndex, row: &right, updateRowTo: updateRowTo, fullRow: &fullRow)
         
-        row = merge(from: start, left, right, row: &fullRow, updateRowWith: updateRowWith)
+        row = merge(from: start, left, right, row: &fullRow, updateRowTo: updateRowTo)
         
         // Update Method B - Only update after merging two arrays
         // arrayView.replaceValues(newValues: a, startingFrom: start)
@@ -221,10 +154,10 @@ class MergeSorter: Sorter {
 
     // MARK: Sorter Conformance
     
-    func sortSquares(_ squares: [Block], updateRowWith: @escaping ([Block]) -> Void) {
-        var blocks = squares
-        var initialRow = blocks
-        self.mergeSort(from: 0, row: &initialRow, updateRowWith: updateRowWith, fullRow: &blocks)
+    func sortRow(_ row: Row, updateRowTo: (Row) -> Void) {
+        var row = row
+        var initialBlocks = row.blocks
+        self.mergeSort(from: 0, row: &initialBlocks, updateRowTo: updateRowTo, fullRow: &row)
     }
     
 }

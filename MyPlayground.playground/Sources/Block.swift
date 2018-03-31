@@ -53,16 +53,12 @@ extension Collection where Element == Block {
 
 // MARK: -
 
-class SquareView: UIView {
+class BlockView: UIView {
     
-    let square: Block
-    
-//    override var intrinsicContentSize: CGSize {
-//        return CGSize(width: 10, height: 10)
-//    }
+    let block: Block
     
     init(square: Block) {
-        self.square = square
+        self.block = square
         super.init(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         
         self.backgroundColor = square.color

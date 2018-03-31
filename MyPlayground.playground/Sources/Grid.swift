@@ -63,10 +63,10 @@ public class Grid {
         
         for (index, row) in self.rows.enumerated() {
             DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 2) {
-                self.sorter.sortSquares(row.blocks, updateRowWith: { (blocks) in
+                self.sorter.sortRow(row, updateRowTo: { (newRow) in
                     let updateOperation = BlockOperation {
                         DispatchQueue.main.async {
-                            self.gridView.updateRow(at: index, withRow: Row(squares: blocks))
+                            self.gridView.updateRow(at: index, withRow: newRow)
                         }
                     }
                     self.updateOperations.addOperation(DelayOperation(self.delayBetweenUpdates))
@@ -89,8 +89,8 @@ class GridViewController: UIViewController {
 
     // MARK: Private
     
-    private var lineViews: [LineView] {
-        return self.view.subviews.compactMap({ $0 as? LineView })
+    private var lineViews: [RowView] {
+        return self.view.subviews.compactMap({ $0 as? RowView })
     }
     
     // MARK: - Contructors
@@ -133,7 +133,7 @@ class GridViewController: UIViewController {
         self.lineViews.forEach({ $0.removeFromSuperview() })
         
         for row in rows {
-            self.view.addSubview(LineView(withRow: row))
+            self.view.addSubview(RowView(withRow: row))
         }
         
         self.view.setNeedsLayout()
@@ -154,8 +154,8 @@ class GridViewController: UIViewController {
         }
     }
     
-    private func createLineViews(forRows rows: [Row]) -> [LineView] {
-        return rows.map({ LineView(withRow: $0) })
+    private func createLineViews(forRows rows: [Row]) -> [RowView] {
+        return rows.map({ RowView(withRow: $0) })
     }
     
 }
