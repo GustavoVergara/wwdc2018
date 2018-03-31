@@ -13,7 +13,7 @@ import UIKit
 public class Grid {
     public var startColor: UIColor = .purple        { didSet { self._rows = nil } }
     public var endColor: UIColor = .green           { didSet { self._rows = nil } }
-    public var amountOfHorizontalLines: Int = 1     { didSet { self._rows = nil } }
+    public var amountOfHorizontalLines: Int = 5     { didSet { self._rows = nil } }
     public var amountOfVerticalSquares: Int = 70    { didSet { self._rows = nil } }
     public var delayBetweenUpdates: TimeInterval = 0.005
     
@@ -27,7 +27,7 @@ public class Grid {
         
         var lines = [Row]()
         for _ in (0..<self.amountOfHorizontalLines) {
-//            var line = Row(fromColor: self.startColor, toColor: self.endColor, quantity: self.amountOfVerticalSquares)
+//            var row = Row(fromColor: self.startColor, toColor: self.endColor, quantity: self.amountOfVerticalSquares)
             var line = Row(quantity: self.amountOfVerticalSquares)
             line.shuffle()
             lines.append(line)
@@ -90,7 +90,7 @@ class GridViewController: UIViewController {
     // MARK: Private
     
     private var lineViews: [LineView] {
-        return self.view.subviews.flatMap({ $0 as? LineView })
+        return self.view.subviews.compactMap({ $0 as? LineView })
     }
     
     // MARK: - Contructors
@@ -140,7 +140,7 @@ class GridViewController: UIViewController {
     }
     
     func updateRow(at index: Int, withRow row: Row) {
-        self.lineViews[index].line = row
+        self.lineViews[index].row = row
     }
 
     // MARK: Private

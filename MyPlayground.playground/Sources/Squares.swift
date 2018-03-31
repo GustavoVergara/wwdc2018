@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: -
 
-public struct Block: Equatable, Comparable {
+public struct Block: Equatable, Comparable, Hashable {
     public var color: UIColor
     var correctPosition: Int
     

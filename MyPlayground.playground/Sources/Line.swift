@@ -61,19 +61,23 @@ extension Row: MutableCollection, RandomAccessCollection {
 
 // MARK: -
 
-class LineView: UIStackView {
+class LineView: UIView {
     
     var squareViews: [SquareView] {
-        return self.arrangedSubviews.flatMap({ $0 as? SquareView })
+        return self.subviews.compactMap({ $0 as? SquareView })
     }
     
-    var squares: [Block] {
-        return self.line.blocks
+    var blocks: [Block] {
+        return self.row.blocks
     }
     
-    var line: Row {
+    var row: Row {
         didSet {
+//            if Set(self.row) == Set(oldValue) {
+//                self.setNeedsLayout()
+//            } else {
             self.recreateBlocks()
+//            }
         }
     }
     
@@ -82,26 +86,40 @@ class LineView: UIStackView {
     }
     
     init(withRow line: Row) {
-        self.line = line
+        self.row = line
         super.init(frame: .zero)
-        self.distribution = .fillEqually
+//        self.distribution = .fillEqually
         
         self.recreateBlocks()
     }
     
-    required init(coder: NSCoder) {
-        self.line = Row(squares: [])
+    required init?(coder: NSCoder) {
+        self.row = Row(squares: [])
         super.init(coder: coder)
-        self.distribution = .fillEqually
+//        self.distribution = .fillEqually
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let blockWidth = self.bounds.width / CGFloat(self.squareViews.count)
+        for (index, blockView) in self.squareViews.enumerated() {
+            blockView.frame.origin.x = CGFloat(index) * blockWidth
+            blockView.frame.size.width = blockWidth
+            blockView.frame.size.height = self.bounds.height
+        }
     }
     
     private func recreateBlocks() {
-        self.arrangedSubviews.forEach({ $0.removeFromSuperview() })
+        self.subviews.forEach({ $0.removeFromSuperview() })
         
-        for block in self.line.blocks {
+        for block in self.row {
             let squareView = SquareView(square: block)
-            self.addArrangedSubview(squareView)
+            self.addSubview(squareView)
         }
+        
+        self.setNeedsLayout()
     }
+    
     
 }

@@ -15,7 +15,6 @@
 		9B6120D82069DA23003297AF /* Squares.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6120D52069DA23003297AF /* Squares.swift */; };
 		9BBA1861206B26E400F0933A /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBA1860206B26E400F0933A /* Line.swift */; };
 		9BBA1865206B43A600F0933A /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBA1862206B43A600F0933A /* Array+Extensions.swift */; };
-		9BBA1866206B43A600F0933A /* ArrayStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBA1863206B43A600F0933A /* ArrayStackView.swift */; };
 		9BBA1867206B43A600F0933A /* DelayOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBA1864206B43A600F0933A /* DelayOperation.swift */; };
 		9BCF40872069DF37007815D6 /* Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BCF40862069DF37007815D6 /* Sorting.swift */; };
 /* End PBXBuildFile section */
@@ -31,7 +30,6 @@
 		9B6120D52069DA23003297AF /* Squares.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Squares.swift; sourceTree = "<group>"; };
 		9BBA1860206B26E400F0933A /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		9BBA1862206B43A600F0933A /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
-		9BBA1863206B43A600F0933A /* ArrayStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayStackView.swift; sourceTree = "<group>"; };
 		9BBA1864206B43A600F0933A /* DelayOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayOperation.swift; sourceTree = "<group>"; };
 		9BCF40862069DF37007815D6 /* Sorting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sorting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				9BBA1862206B43A600F0933A /* Array+Extensions.swift */,
-				9BBA1863206B43A600F0933A /* ArrayStackView.swift */,
 				9BBA1864206B43A600F0933A /* DelayOperation.swift */,
 			);
 			path = VerticalLines;
@@ -134,7 +131,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Gustavo Vergara Garcia";
 				TargetAttributes = {
 					9B4F52B120661E8A00FAAFE8 = {
@@ -186,7 +183,6 @@
 				9BBA1861206B26E400F0933A /* Line.swift in Sources */,
 				9B6120D72069DA23003297AF /* GridViewController.swift in Sources */,
 				9BCF40872069DF37007815D6 /* Sorting.swift in Sources */,
-				9BBA1866206B43A600F0933A /* ArrayStackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +214,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -225,6 +222,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -275,6 +273,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -282,6 +281,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
