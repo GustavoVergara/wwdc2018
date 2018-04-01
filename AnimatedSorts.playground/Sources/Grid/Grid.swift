@@ -8,13 +8,13 @@
 
 import Foundation
 import UIKit
-//import PlaygroundSupport
+import PlaygroundSupport
 
 public class Grid {
-    public var startColor: UIColor = .purple        { didSet { self._rows = nil } }
-    public var endColor: UIColor = .green           { didSet { self._rows = nil } }
-    public var amountOfHorizontalLines: Int = 5     { didSet { self._rows = nil } }
-    public var amountOfVerticalSquares: Int = 70    { didSet { self._rows = nil } }
+//    public var startColor: UIColor = .purple        { didSet { self._rows = nil } }
+//    public var endColor: UIColor = .green           { didSet { self._rows = nil } }
+    public var amountOfRows: Int = 5                { didSet { self._rows = nil } }
+    public var amountOfBlocksPerRow: Int = 70       { didSet { self._rows = nil } }
     public var delayBetweenUpdates: TimeInterval = 0.005
     
     public var sorter: Sorter = MergeSorter()
@@ -26,9 +26,8 @@ public class Grid {
         if let rows = self._rows { return rows }
         
         var lines = [Row]()
-        for _ in (0..<self.amountOfHorizontalLines) {
-//            var row = Row(fromColor: self.startColor, toColor: self.endColor, quantity: self.amountOfVerticalSquares)
-            var line = Row(quantity: self.amountOfVerticalSquares)
+        for _ in (0..<self.amountOfRows) {
+            var line = Row(quantity: self.amountOfBlocksPerRow)
             line.shuffle()
             lines.append(line)
         }
@@ -36,18 +35,18 @@ public class Grid {
         return lines
     }
     
-    public init(startColor: UIColor, endColor: UIColor, amountOfHorizontalLines: Int, amountOfVerticalSquares: Int) {
-        self.startColor = startColor
-        self.endColor = endColor
-        self.amountOfHorizontalLines = amountOfHorizontalLines
-        self.amountOfVerticalSquares = amountOfVerticalSquares
+    public init(/*startColor: UIColor, endColor: UIColor, */amountOfRows: Int, amountOfBlocksPerRow: Int) {
+//        self.startColor = startColor
+//        self.endColor = endColor
+        self.amountOfRows = amountOfRows
+        self.amountOfBlocksPerRow = amountOfBlocksPerRow
     }
     
     public init() {}
     
     private func show() {
         self.gridView.updateLayout(withRows: self.rows)
-//        PlaygroundPage.current.liveView = self.gridView
+        PlaygroundPage.current.liveView = self.gridView
     }
     
     // MARK: SORTING
@@ -58,7 +57,7 @@ public class Grid {
         return operationQueue
     }()
 
-    func sort() {
+    public func sort() {
         self.show()
         
         for (index, row) in self.rows.enumerated() {
@@ -89,8 +88,8 @@ class GridViewController: UIViewController {
 
     // MARK: Private
     
-    private var lineViews: [RowView] {
-        return self.view.subviews.compactMap({ $0 as? RowView })
+    private var lineViews: [HorizontalRowView] {
+        return self.view.subviews.compactMap({ $0 as? HorizontalRowView })
     }
     
     // MARK: - Contructors
@@ -133,7 +132,7 @@ class GridViewController: UIViewController {
         self.lineViews.forEach({ $0.removeFromSuperview() })
         
         for row in rows {
-            self.view.addSubview(RowView(withRow: row))
+            self.view.addSubview(HorizontalRowView(withRow: row))
         }
         
         self.view.setNeedsLayout()
@@ -154,8 +153,8 @@ class GridViewController: UIViewController {
         }
     }
     
-    private func createLineViews(forRows rows: [Row]) -> [RowView] {
-        return rows.map({ RowView(withRow: $0) })
+    private func createLineViews(forRows rows: [Row]) -> [HorizontalRowView] {
+        return rows.map({ HorizontalRowView(withRow: $0) })
     }
     
 }

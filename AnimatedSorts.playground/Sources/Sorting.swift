@@ -16,11 +16,13 @@ public protocol Sorter {
 
 // MARK: -
 
-class BubbleSorter: Sorter {
+public class BubbleSorter: Sorter {
     
+    public init() {}
+
     // MARK: Sorter Conformance
 
-    func sortRow(_ row: Row, updateRowTo: (Row) -> Void) {
+    public func sortRow(_ row: Row, updateRowTo: (Row) -> Void) {
         var squares = row
         var isSorted: Bool
         repeat {
@@ -40,7 +42,9 @@ class BubbleSorter: Sorter {
 
 // MARK: -
 
-class QuickSorter: Sorter {
+public class QuickSorter: Sorter {
+    
+    public init() {}
     
     /// Quick sort a subarray from index start...end
     /// Note that you can randomly pick a pivotIndex and avoid worst case O(N^2) complexity when the starting array is reversed.
@@ -78,7 +82,7 @@ class QuickSorter: Sorter {
     
     // MARK: Sorter Conformance
     
-    func sortRow(_ row: Row, updateRowTo: (Row) -> Void) {
+    public func sortRow(_ row: Row, updateRowTo: (Row) -> Void) {
         var row = row
         self.quickSort(range: CountableClosedRange(row.startIndex..<row.endIndex), ofRow: &row, updateRowTo: updateRowTo)
     }
@@ -87,9 +91,11 @@ class QuickSorter: Sorter {
 
 // MARK: -
 
-class MergeSorter: Sorter {
+public class MergeSorter: Sorter {
     
-    public func merge(from start: Int, _ left: [Block], _ right: [Block], row: inout Row, updateRowTo: (Row) -> Void) -> [Block] {
+    public init() {}
+
+    private func merge(from start: Int, _ left: [Block], _ right: [Block], row: inout Row, updateRowTo: (Row) -> Void) -> [Block] {
         var leftIndex = 0
         var rightIndex = 0
         
@@ -136,7 +142,7 @@ class MergeSorter: Sorter {
     }
     
     // Note the 'start' param is used for display, not the algorithm.
-    func mergeSort(from start: Int, row: inout [Block], updateRowTo: (Row) -> Void, fullRow: inout Row) {
+    private func mergeSort(from start: Int, row: inout [Block], updateRowTo: (Row) -> Void, fullRow: inout Row) {
         guard row.count > 1 else { return }
         
         let midIndex = row.count / 2
@@ -154,10 +160,42 @@ class MergeSorter: Sorter {
 
     // MARK: Sorter Conformance
     
-    func sortRow(_ row: Row, updateRowTo: (Row) -> Void) {
+    public func sortRow(_ row: Row, updateRowTo: (Row) -> Void) {
         var row = row
         var initialBlocks = row.blocks
         self.mergeSort(from: 0, row: &initialBlocks, updateRowTo: updateRowTo, fullRow: &row)
     }
     
+}
+
+// MARK: -
+
+public class InsertionSorter: Sorter {
+    
+    public init() {}
+    
+    private func insertionSort(_ array: inout Row, updateRowTo: (Row) -> Void) {
+        guard array.count > 1 else { return }
+        
+        for outerIndex in 1..<array.count {
+            var innerIndex = outerIndex
+            let currentElement = array[innerIndex]
+            while innerIndex > 0 && currentElement < array[innerIndex - 1] {
+                array[innerIndex] = array[innerIndex - 1]
+                innerIndex -= 1
+                updateRowTo(array)
+                
+            }
+            array[innerIndex] = currentElement
+        }
+        
+    }
+    
+    // MARK: Sorter Conformance
+    
+    public func sortRow(_ row: Row, updateRowTo: (Row) -> Void) {
+        var row = row
+        self.insertionSort(&row, updateRowTo: updateRowTo)
+    }
+
 }

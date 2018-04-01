@@ -16,12 +16,16 @@ public struct Row {
     
     public var blocks: Blocks
     
-    init(fromColor startColor: UIColor, toColor endColor: UIColor, quantity: Int) {
+    public init(fromColor startColor: UIColor, toColor endColor: UIColor, quantity: Int) {
         self.blocks = .blocks(fromColor: startColor, toColor: endColor, quantity: quantity)
     }
     
-    init(quantity: Int) {
+    public init(quantity: Int) {
         self.blocks = .blocks(quantity: quantity)
+    }
+    
+    public init() {
+        self.init(squares: [])
     }
     
     public init(squares: Blocks) {
@@ -52,7 +56,7 @@ extension Row: MutableCollection, RandomAccessCollection {
     }
     
     /// Required subscript, based on the block array
-    public subscript(position: Index) -> Iterator.Element {
+    public subscript(position: Index) -> Block {
         get {
             return self.blocks[position]
         }
@@ -65,7 +69,7 @@ extension Row: MutableCollection, RandomAccessCollection {
 
 // MARK: -
 
-class RowView: UIView {
+class HorizontalRowView: UIView {
     
     var squareViews: [BlockView] {
         return self.subviews.compactMap({ $0 as? BlockView })

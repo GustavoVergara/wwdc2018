@@ -16,17 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let grid = Grid()
+//        let grid = Grid()
         
         
         let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = grid.gridView//GridViewController(withGrid: Grid())
+        window.rootViewController = CustomViewController()//grid.gridView
         window.makeKeyAndVisible()
         self.window = window
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            grid.sort()
-        }
+//        grid.sort()
         
         return true
     }
@@ -53,6 +51,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    class CustomViewController: UIViewController {
+//        let pillarView = PillarsView()
+        let pillars = Pillars()
+        
+        override func loadView() {
+            self.view = UIView()
+            self.view.backgroundColor = .darkGray
+            
+            self.view.addSubview(self.pillars.view)
+            self.pillars.view.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin]
+//            self.pillarView.setNeedsLayout()
+//            self.pillarView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+//            self.pillarView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+            self.pillars.sort()
+        }
+        
+    }
 
 }
 
