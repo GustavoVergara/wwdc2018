@@ -5,10 +5,10 @@
 - [x] Dynamic grid view
 - [x] Color fading!
 - [x] Grid shuffle
-- [ ] Make the grid object all mighty and powerful
-- [ ] Animations
-- [ ] Sort
-- [ ] More colors!
+- [x] Make the grid object all mighty and powerful
+- [x] Animations
+- [x] Sort
+- [x] More colors!
 - [ ] Vertical Lines view
 - [ ] Change the grid view to be a UIView, instead of a UIViewController
 - [ ] Make the size of the view be relative to the square amount
